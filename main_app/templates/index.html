@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet"> 
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <title>Wish List</title>
+</head>
+<body>
+    <h1>Wish List Items</h1>
+
+    <form action="{% url 'add' %}">
+        <button type="submit">Add a Wish Item</button>
+    </form>
+
+    <hr>
+
+    {% if items %}
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Remove</th>
+        </tr>
+        {% for item in items %}
+            <tr>
+                <td>{{ item.name }}</td>
+                <td>
+                    <form action="{% url 'delete' item.id %}">
+                        <button type="submit">X</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <h3>No Items Exist :(</h3>
+    {% endif %}
+</body>
+</html>
